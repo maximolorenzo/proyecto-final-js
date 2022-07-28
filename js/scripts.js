@@ -1,53 +1,46 @@
-class Producto{ 
-    constructor(id,nombre,price, stock){
-    this.id = id
-    this.nombre = nombre
-    this.price = price
-    this.stock = stock
-    
-}
-}
-
-let productos = []
-productos.push (new Producto(5271,'Remera Nike',7000,50))
-productos.push (new Producto(5275,'Remera Adidas',7500,60))
-productos.push (new Producto(2354,'Pantalon Adidas',1500,25))
-productos.push (new Producto(3450,'Buzo Nike',15000,35))
-
-
 const carritoDeCompra = []
 
-function AgregarAlCarrito(producto) {
-    if (producto.cantidad <= 0) {
-        alert('no hay stock')
-        return 
-    }
-    const productoEncontrado = productos.find((el) => el.id === producto.id )
-    if (productoEncontrado && producto.cantidad > productoEncontrado.stock) {
-        if(productoEncontrado){
-            alert("este producto no existe mas ")
-        }else{
-            alert('la cantidad que desea comprar supera al stock')
-        } 
-        return
-        
-    }
-    carritoDeCompra.push (new Producto(producto.id,productoEncontrado.nombre,productoEncontrado.precio,producto.cantidad))
-    productos = productos.map ((el) => {
-        if(el.id == productoEncontrado.id ){
-            el.stock -= producto.cantidad; 
-        }
-        return el
-    
-    })
-    
-    
-    console.log(productos)
+const productos = [
+{id:5271, title:'Remera Nike', price: 7000},
+{id:5275, title:'Remera Adidas', price:7500},
+{id:2354, title:'Pantalon Adidas', price: 1500},
+{id:3450, title:'Buzo Nike', price: 15000},
+]
+let cards = ''
+
+productos.forEach ((producto) => {
+    cards += `<div class="col mb-5">
+    <div class="card h-100">
+        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">${producto.title}</h5>
+                <!-- Product price-->
+                <span class="text-muted text-decoration-line-through">${producto.price}</span>
+                $25.00
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+        </div>
+    </div>
+</div> `
+})
+
+
+
+function AgregarAlCarrito(tituloProducto) {
+    alert("agregado" +tituloProducto)
 }
 
-AgregarAlCarrito ({id: 5271, cantidad: 2})
-// AgregarAlCarrito ({id: 5275, nombre: 'Remera Adidas', price: 7000, stock: 4})
-// AgregarAlCarrito ({id: 2354, nombre: 'Pantalon Adidas', price: 7000, stock: 3})
-// AgregarAlCarrito ({id: 3450, nombre: 'Remera Nike', price: 7000, stock: 2})
+
+document.getElementById("seccion-card").innerHTML = cards
+
+
+
+
 
 
