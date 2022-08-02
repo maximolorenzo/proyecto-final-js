@@ -1,4 +1,4 @@
-const carritoDeCompra = []
+const carrito = []
 
 const productos = [
 {id:5271, title:'Remera Nike', price: 7000},
@@ -9,22 +9,20 @@ const productos = [
 let cards = ''
 
 productos.forEach ((producto) => {
-    cards += `<div class="col mb-5">
+    const addCartId = `add-cart${producto.id}`
+    document.getElementById("seccion-card").innerHTML += `<div class="col mb-5">
     <div class="card h-100">
         <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-        <!-- Product details-->
         <div class="card-body p-4">
             <div class="text-center">
-                <!-- Product name-->
                 <h5 class="fw-bolder">${producto.title}</h5>
-                <!-- Product price-->
                 <span class="text-muted text-decoration-line-through">${producto.price}</span>
-                $25.00
+                ${producto.price}
             </div>
         </div>
         <!-- Product actions-->
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" id= "${addCartId}" >Add to cart</a></div>
         </div>
     </div>
 </div> `
@@ -32,12 +30,16 @@ productos.forEach ((producto) => {
 
 
 
-function AgregarAlCarrito(tituloProducto) {
-    alert("agregado" +tituloProducto)
-}
+productos.forEach ((producto) => {
+    const addCartId = `add-cart${producto.id}`
+    document.getElementById(addCartId).addEventListener('click',() => {
+        console.log(producto)
+        //carrito.push(producto)
+
+    })
+})
 
 
-document.getElementById("seccion-card").innerHTML = cards
 
 
 
