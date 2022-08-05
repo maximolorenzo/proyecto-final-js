@@ -69,7 +69,7 @@ function carritoCompra(){
       </div>`
     })
 }
-
+carritoCompra()
 
 
 
