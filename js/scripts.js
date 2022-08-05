@@ -1,4 +1,5 @@
-const carrito = []
+const carrito = JSON.parse(localStorage.getItem('carrito')) ?? [];
+document.getElementById("totalCart").innerHTML = carrito.length
 
 const productos = [
 {id:5271, title:'Remera Nike', price: 7000},
@@ -16,7 +17,7 @@ productos.forEach ((producto) => {
         <div class="card-body p-4">
             <div class="text-center">
                 <h5 class="fw-bolder">${producto.title}</h5>
-                <span class="text-muted text-decoration-line-through">${producto.price}</span>
+                
                 ${producto.price}
             </div>
         </div>
@@ -32,14 +33,42 @@ productos.forEach ((producto) => {
 
 productos.forEach ((producto) => {
     const addCartId = `add-cart${producto.id}`
-    document.getElementById(addCartId).addEventListener('click',() => {
-        console.log(producto)
-        //carrito.push(producto)
-
-    })
+    document.getElementById(addCartId).onclick = () => {
+        carrito.push(producto)
+        document.getElementById("totalCart").innerHTML = carrito.length
+        localStorage.setItem("carrito", JSON.stringify(carrito))
+        console.log(carrito)
+    }
 })
 
-
+function carritoCompra(){
+    carrito.forEach((producto) => {
+        document.getElementById("pedro").innerHTML += `<div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+            </div>
+            <div class="ms-3">
+              <h5>${producto.title}</h5>
+              
+            </div>
+          </div>
+          <div class="d-flex flex-row align-items-center">
+            <div style="width: 50px;">
+              <h5 class="fw-normal mb-0">2</h5>
+            </div>
+            <div style="width: 80px;">
+              <h5 class="mb-0">${producto.price}</h5>
+            </div>
+            <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+          </div>
+        </div>
+      </div>`
+    })
+}
 
 
 
