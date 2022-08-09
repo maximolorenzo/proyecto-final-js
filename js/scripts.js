@@ -32,13 +32,13 @@ productos.forEach ((producto) => {
 
 
 productos.forEach ((producto) => {
-    const addCartId = `add-cart${producto.id}`
-    document.getElementById(addCartId).onclick = () => {
-        carrito.push(producto)
-        document.getElementById("totalCart").innerHTML = carrito.length
-        localStorage.setItem("carrito", JSON.stringify(carrito))
-        console.log(carrito)
-    }
+  const addCartId = `add-cart${producto.id}`
+  document.getElementById(addCartId).onclick = () => {
+      carrito.push(producto)
+      document.getElementById("totalCart").innerHTML = carrito.length
+      localStorage.setItem("carrito", JSON.stringify(carrito))
+      console.log(carrito)
+  }
 })
 
 function carritoCompra(){
@@ -63,14 +63,25 @@ function carritoCompra(){
             <div style="width: 80px;">
               <h5 class="mb-0">${producto.price}</h5>
             </div>
-            <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+            <button><a  style="color: black;" onclick="eliminarDelCarrito(${producto.id})" <i></i>X</a></button>
           </div>
         </div>
       </div>`
     })
 }
-carritoCompra()
 
+
+function eliminarDelCarrito(productoId) {
+  const prod = carrito.find((producto) => producto.id == productoId)
+  let i = carrito.indexOf(prod)
+  if (i != -1) {
+    carrito.splice(i, 1)
+  }
+  carrito.reduce((total, producto) => total + producto.price, 0)
+  
+  
+  
+}
 
 
 

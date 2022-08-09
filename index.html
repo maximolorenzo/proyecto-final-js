@@ -36,31 +36,30 @@
                     
 
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-dark bi-cart-fill me-1" data-toggle="modal" data-target="#exampleModal">
-  cart
-  <span class="badge bg-dark text-white ms-1 rounded-pill" id="totalCart">0</span>
-</button>
+<button type="button" class="btn btn-outline-dark bi-cart-fill me-1" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" onclick="carritoCompra()"> cart</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<span class="badge bg-dark text-white ms-1 rounded-pill" id="totalCart">0</span>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body pedro">
-        
+      <div class="modal-body " id="pedro">
+       
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
         </nav>
         <!-- Header-->
         <header class="bg-dark py-5">
