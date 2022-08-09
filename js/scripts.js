@@ -7,7 +7,7 @@ const productos = [
 {id:2354, title:'Pantalon Adidas', price: 1500},
 {id:3450, title:'Buzo Nike', price: 15000},
 ]
-let cards = ''
+
 
 productos.forEach ((producto) => {
     const addCartId = `add-cart${producto.id}`
@@ -41,7 +41,11 @@ productos.forEach ((producto) => {
   }
 })
 
+
 function carritoCompra(){
+  localStorage.setItem("carrito" , JSON.stringify(carrito))
+  pedro.innerHTML = ""
+  totalCart.innerHTML = carrito.length
     carrito.forEach((producto) => {
         document.getElementById("pedro").innerHTML += `<div class="card-body">
         <div class="d-flex justify-content-between">
@@ -72,17 +76,16 @@ function carritoCompra(){
 
 
 function eliminarDelCarrito(productoId) {
-  const prod = carrito.find((producto) => producto.id == productoId)
-  let i = carrito.indexOf(prod)
-  if (i != -1) {
+    const prod = carrito.find((producto) => producto.id == productoId)
+    let i = carrito.indexOf(prod)
+    if (i != -1) {
     carrito.splice(i, 1)
   }
-  carrito.reduce((total, producto) => total + producto.price, 0)
-  
-  
-  
+    carrito.reduce((total, producto) => total + producto.price, 0)
+    
+    carritoCompra()
+    
 }
 
-
-
+console.log(...carrito)
 
