@@ -1,5 +1,8 @@
+//guarda los elemenos del carrito el storage
 const carrito = JSON.parse(localStorage.getItem('carrito')) ?? [];
 document.getElementById("totalCart").innerHTML = carrito.length
+
+//base de datos 
 
 const productos = [
 {id:5271, title:'Remera Nike', price: 7000},
@@ -8,7 +11,7 @@ const productos = [
 {id:3450, title:'Buzo Nike', price: 15000},
 ]
 
-
+//Genera las cards de manera dinamica
 productos.forEach ((producto) => {
     const addCartId = `add-cart${producto.id}`
     document.getElementById("seccion-card").innerHTML += `<div class="col mb-5">
@@ -29,7 +32,7 @@ productos.forEach ((producto) => {
 </div> `
 })
 
-
+// Boton para agregar los productos al carrito
 
 productos.forEach ((producto) => {
   const addCartId = `add-cart${producto.id}`
@@ -42,6 +45,7 @@ productos.forEach ((producto) => {
 })
 
 
+//genera las cards agregadas en el carrito de compra
 function carritoCompra(){
   localStorage.setItem("carrito" , JSON.stringify(carrito))
   pedro.innerHTML = ""
@@ -74,6 +78,7 @@ function carritoCompra(){
     })
 }
 
+//elimina productos del carrito
 
 function eliminarDelCarrito(productoId) {
     const prod = carrito.find((producto) => producto.id == productoId)
@@ -85,6 +90,15 @@ function eliminarDelCarrito(productoId) {
     
     carritoCompra()
     
+}
+
+function compraRealiza(){
+  Swal.fire({
+    icon: 'success',
+    title: 'Su compra se realizo con exito !',
+    showConfirmButton: false,
+    timer: 1500
+  })
 }
 
 console.log(...carrito)
