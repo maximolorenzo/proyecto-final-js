@@ -5,10 +5,10 @@ document.getElementById("totalCart").innerHTML = carrito.length
 //base de datos 
 
 const productos = [
-{id:5271, title:'Remera Nike', price: 7000},
-{id:5275, title:'Remera Adidas', price:7500},
-{id:2354, title:'Pantalon Adidas', price: 1500},
-{id:3450, title:'Buzo Nike', price: 15000},
+{id:5271, title:'Remera Nike', price: 7000, cantidad: 0},
+{id:5275, title:'Remera Adidas', price:7500, cantidad: 0},
+{id:2354, title:'Pantalon Adidas', price: 1500, cantidad: 0},
+{id:3450, title:'Buzo Nike', price: 15000, cantidad: 0},
 ]
 
 //Genera las cards de manera dinamica
@@ -37,11 +37,17 @@ productos.forEach ((producto) => {
 productos.forEach ((producto) => {
   const addCartId = `add-cart${producto.id}`
   document.getElementById(addCartId).onclick = () => {
+    if (producto.cantidad === 0){
       carrito.push(producto)
+      producto.cantidad ++
+    }else {
+      producto.cantidad ++
+    }
+      
       document.getElementById("totalCart").innerHTML = carrito.length
       localStorage.setItem("carrito", JSON.stringify(carrito))
       console.log(carrito)
-  }
+        }
 })
 
 
@@ -66,10 +72,10 @@ function carritoCompra(){
           </div>
           <div class="d-flex flex-row align-items-center">
             <div style="width: 50px;">
-              <h5 class="fw-normal mb-0">2</h5>
+              <h5 class="fw-normal mb-0">${producto.cantidad}</h5>
             </div>
             <div style="width: 80px;">
-              <h5 class="mb-0">${producto.price}</h5>
+              <h5 class="mb-0">${producto.price * producto.cantidad}</h5>
             </div>
             <button><a  style="color: black;" onclick="eliminarDelCarrito(${producto.id})" <i></i>X</a></button>
           </div>
@@ -83,8 +89,13 @@ function carritoCompra(){
 function eliminarDelCarrito(productoId) {
     const prod = carrito.find((producto) => producto.id == productoId)
     let i = carrito.indexOf(prod)
-    if (i != -1) {
-    carrito.splice(i, 1)
+    if (i != -1 ) {
+    if(prod.cantidad <= 1){
+      carrito.splice(i, 1)
+    }else {
+      carrito[i].cantidad--
+    }
+
   }
     carrito.reduce((total, producto) => total + producto.price, 0)
     
@@ -102,4 +113,6 @@ function compraRealiza(){
 }
 
 console.log(...carrito)
+
+
 
