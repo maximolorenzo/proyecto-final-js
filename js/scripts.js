@@ -4,14 +4,18 @@ document.getElementById("totalCart").innerHTML = carrito.length
 
 //base de datos 
 
-const productos = [
-{id:5271, title:'Remera Nike', price: 7000, cantidad: 0},
-{id:5275, title:'Remera Adidas', price:7500, cantidad: 0},
-{id:2354, title:'Pantalon Adidas', price: 1500, cantidad: 0},
-{id:3450, title:'Buzo Nike', price: 15000, cantidad: 0},
-]
+const productos = []
 
-//Genera las cards de manera dinamica
+const jsonProductos = async () =>{
+const response = await fetch("js/productos.json")
+const info = await response.json()
+cardsDinamicas (info)
+btnAgregarCart (info)
+console.log(info)
+}
+jsonProductos()
+
+function cardsDinamicas (){
 productos.forEach ((producto) => {
     const addCartId = `add-cart${producto.id}`
     document.getElementById("seccion-card").innerHTML += `<div class="col mb-5">
@@ -31,8 +35,9 @@ productos.forEach ((producto) => {
     </div>
 </div> `
 })
-
+}
 // Boton para agregar los productos al carrito
+function btnAgregarCart (){
 
 productos.forEach ((producto) => {
   const addCartId = `add-cart${producto.id}`
@@ -49,7 +54,7 @@ productos.forEach ((producto) => {
       console.log(carrito)
         }
 })
-
+}
 
 //genera las cards agregadas en el carrito de compra
 function carritoCompra(){
