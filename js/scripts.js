@@ -4,14 +4,14 @@ document.getElementById("totalCart").innerHTML = carrito.length
 
 //base de datos 
 
-const productos = []
+let productos = []
 
 const jsonProductos = async () =>{
 const response = await fetch("js/productos.json")
 const info = await response.json()
-cardsDinamicas (info)
-btnAgregarCart (info)
-console.log(info)
+productos = info
+cardsDinamicas ()
+btnAgregarCart ()
 }
 jsonProductos()
 
