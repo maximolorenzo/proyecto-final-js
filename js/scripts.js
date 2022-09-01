@@ -75,10 +75,10 @@ productos.forEach ((producto) => {
 //genera las cards agregadas en el carrito de compra
 function carritoCompra(){
   localStorage.setItem("carrito" , JSON.stringify(carrito))
-  pedro.innerHTML = ""
+  popUp.innerHTML = ""
   totalCart.innerHTML = carrito.length
     carrito.forEach((producto) => {
-        document.getElementById("pedro").innerHTML += `<div class="card-body">
+        document.getElementById("popUp").innerHTML += `<div class="card-body">
         <div class="d-flex justify-content-between">
           <div class="d-flex flex-row align-items-center">
             <div>
