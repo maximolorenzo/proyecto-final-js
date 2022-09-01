@@ -51,8 +51,24 @@ productos.forEach ((producto) => {
       
       document.getElementById("totalCart").innerHTML = carrito.length
       localStorage.setItem("carrito", JSON.stringify(carrito))
+      
+      Toastify({
+        text: "Producto agregado",
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        
+      }).showToast();
       console.log(carrito)
         }
+        
 })
 }
 
@@ -100,7 +116,20 @@ function eliminarDelCarrito(productoId) {
     }else {
       carrito[i].cantidad--
     }
-
+    Toastify({
+      text: "Producto eliminado",
+      duration: 3000,
+      destination: "https://github.com/apvarun/toastify-js",
+      newWindow: true,
+      close: true,
+      gravity: "top", 
+      position: "right", 
+      stopOnFocus: true, 
+      style: {
+        background: "linear-gradient(to right, #FF5050, #FD3333)",
+      },
+      
+    }).showToast();
   }
     carrito.reduce((total, producto) => total + producto.price, 0)
     
