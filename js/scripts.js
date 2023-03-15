@@ -1,26 +1,34 @@
 //guarda los elemenos del carrito el storage
-const carrito = JSON.parse(localStorage.getItem('carrito')) ?? [];
-document.getElementById("totalCart").innerHTML = carrito.length
+const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
+document.getElementById("totalCart").innerHTML = carrito.length;
 
-//base de datos 
+//base de datos
 
-let productos = []
+let productos = [];
 
-const jsonProductos = async () =>{
-const response = await fetch("js/productos.json")
-const info = await response.json()
-productos = info
-cardsDinamicas ()
-btnAgregarCart ()
+const jsonProductos = async () => {
+  const response = await fetch("js/productos.json");
+  const info = await response.json();
+  productos = info;
+  cardsDinamicas();
+  btnAgregarCart();
+};
+jsonProductos();
+
+async function filtrarPorCategoria(categoria) {
+  const productos = await fetchProductos();
+  const productosPorCategoria = productos.filter(
+    (producto) => producto.categoria === categoria
+  );
+  generarInterfaz(productosPorCategoria);
 }
-jsonProductos()
-
-function cardsDinamicas (){
-productos.forEach ((producto) => {
-    const addCartId = `add-cart${producto.id}`
+jsonProductos();
+function cardsDinamicas() {
+  productos.forEach((producto) => {
+    const addCartId = `add-cart${producto.id}`;
     document.getElementById("seccion-card").innerHTML += `<div class="col mb-5">
     <div class="card h-100">
-        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+        <img class="card-img-top" src=${producto.img} alt="..." />
         <div class="card-body p-4">
             <div class="text-center">
                 <h5 class="fw-bolder">${producto.title}</h5>
@@ -33,52 +41,49 @@ productos.forEach ((producto) => {
             <div class="text-center"><a class="btn btn-outline-dark mt-auto" id= "${addCartId}" >Add to cart</a></div>
         </div>
     </div>
-</div> `
-})
+</div> `;
+  });
 }
 // Boton para agregar los productos al carrito
-function btnAgregarCart (){
+function btnAgregarCart() {
+  productos.forEach((producto) => {
+    const addCartId = `add-cart${producto.id}`;
+    document.getElementById(addCartId).onclick = () => {
+      if (producto.cantidad === 0) {
+        carrito.push(producto);
+        producto.cantidad++;
+      } else {
+        producto.cantidad++;
+      }
 
-productos.forEach ((producto) => {
-  const addCartId = `add-cart${producto.id}`
-  document.getElementById(addCartId).onclick = () => {
-    if (producto.cantidad === 0){
-      carrito.push(producto)
-      producto.cantidad ++
-    }else {
-      producto.cantidad ++
-    }
-      
-      document.getElementById("totalCart").innerHTML = carrito.length
-      localStorage.setItem("carrito", JSON.stringify(carrito))
-      
+      document.getElementById("totalCart").innerHTML = carrito.length;
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+
       Toastify({
         text: "Producto agregado",
         duration: 3000,
         destination: "https://github.com/apvarun/toastify-js",
         newWindow: true,
         close: true,
-        gravity: "top", 
-        position: "right", 
-        stopOnFocus: true, 
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
         style: {
           background: "linear-gradient(to right, #00b09b, #96c93d)",
         },
-        
       }).showToast();
-      console.log(carrito)
-        }
-        
-})
+      console.log(carrito);
+    };
+  });
 }
 
 //genera las cards agregadas en el carrito de compra
-function carritoCompra(){
-  localStorage.setItem("carrito" , JSON.stringify(carrito))
-  popUp.innerHTML = ""
-  totalCart.innerHTML = carrito.length
-    carrito.forEach((producto) => {
-        document.getElementById("popUp").innerHTML += `<div class="card-body">
+function carritoCompra() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  popUp.innerHTML = "";
+  totalCart.innerHTML = carrito.length;
+  carrito.forEach((producto) => {
+    document.getElementById("popUp").innerHTML += `<div class="card-body">
         <div class="d-flex justify-content-between">
           <div class="d-flex flex-row align-items-center">
             <div>
@@ -98,23 +103,25 @@ function carritoCompra(){
             <div style="width: 80px;">
               <h5 class="mb-0">${producto.price * producto.cantidad}</h5>
             </div>
-            <button><a  style="color: black;" onclick="eliminarDelCarrito(${producto.id})" <i></i>X</a></button>
+            <button><a  style="color: black;" onclick="eliminarDelCarrito(${
+              producto.id
+            })" <i></i>X</a></button>
           </div>
         </div>
-      </div>`
-    })
+      </div>`;
+  });
 }
 
 //elimina productos del carrito
 
 function eliminarDelCarrito(productoId) {
-    const prod = carrito.find((producto) => producto.id == productoId)
-    let i = carrito.indexOf(prod)
-    if (i != -1 ) {
-    if(prod.cantidad <= 1){
-      carrito.splice(i, 1)
-    }else {
-      carrito[i].cantidad--
+  const prod = carrito.find((producto) => producto.id == productoId);
+  let i = carrito.indexOf(prod);
+  if (i != -1) {
+    if (prod.cantidad <= 1) {
+      carrito.splice(i, 1);
+    } else {
+      carrito[i].cantidad--;
     }
     Toastify({
       text: "Producto eliminado",
@@ -122,31 +129,26 @@ function eliminarDelCarrito(productoId) {
       destination: "https://github.com/apvarun/toastify-js",
       newWindow: true,
       close: true,
-      gravity: "top", 
-      position: "right", 
-      stopOnFocus: true, 
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
       style: {
         background: "linear-gradient(to right, #FF5050, #FD3333)",
       },
-      
     }).showToast();
   }
-    carrito.reduce((total, producto) => total + producto.price, 0)
-    
-    carritoCompra()
-    
+  carrito.reduce((total, producto) => total + producto.price, 0);
+
+  carritoCompra();
 }
 
-function compraRealiza(){
+function compraRealiza() {
   Swal.fire({
-    icon: 'success',
-    title: 'Su compra se realizo con exito !',
+    icon: "success",
+    title: "Su compra se realizo con exito !",
     showConfirmButton: false,
-    timer: 1500
-  })
+    timer: 1500,
+  });
 }
 
-console.log(...carrito)
-
-
-
+console.log(...carrito);

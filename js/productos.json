@@ -1,6 +1,34 @@
 [
-    {"id":5271, "title":"Remera Nike", "price": 7000, "cantidad": 0},
-    {"id":5275, "title":"Remera Adidas", "price":7500, "cantidad": 0},
-    {"id":2354, "title":"Pantalon Adidas", "price": 1500, "cantidad": 0},
-    {"id":3450, "title":"Buzo Nike", "price": 15000, "cantidad": 0}
+    {
+        "id": 5271,
+        "title": "Remera Nike",
+        "price": 7000,
+        "categoria": "remera",
+        "cantidad": 10,
+        "img": "https://www.digitalsport.com.ar/files/products/5e30bb0137ace-488491-1200x1200.jpg"
+    },
+    {
+        "id": 5275,
+        "title": "Remera Adidas",
+        "price": 7500,
+        "categoria": "remera",
+        "cantidad": 20,
+        "img": ""
+    },
+    {
+        "id": 2354,
+        "title": "Pantalon Adidas",
+        "price": 1500,
+        "categoria": "pantalon",
+        "cantidad": 0,
+        "img": "https://assets.adidas.com/images/w_600,f_auto,q_auto/8b009299fe5b44abb43cad5c01164832_9366/Pantalon_Deportivo_Negro_H20430_21_model.jpg"
+    },
+    {
+        "id": 3450,
+        "title": "Buzo Nike",
+        "price": 15000,
+        "categoria": "buzo",
+        "cantidad": 0,
+        "img": "https://www.digitalsport.com.ar/files/products/6112a7ca63293-564270-500x500.jpg"
+    }
 ]
